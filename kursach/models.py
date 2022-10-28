@@ -1,3 +1,5 @@
+import datetime
+
 from django.db import models
 
 # Create your models here.
@@ -16,13 +18,13 @@ class TypeOfTranscation(models.Model):
         return self.typeName
 
 class CheckData(models.Model):
-    itemUniq = models.CharField(max_length=80)
+    itemUniq = models.CharField(max_length=80,default=1)
     itemName = models.CharField(max_length=80)
     itemCount = models.FloatField()
     itemPrice = models.FloatField()
-    itemCategoryId = models.ForeignKey(Categories, on_delete=models.CASCADE)
-    itemTypeId = models.ForeignKey(TypeOfTranscation, on_delete=models.PROTECT)  # expenses incomes
-    itemTransactionDate = models.DateField()
+    itemCategoryId = models.ForeignKey(Categories, on_delete=models.CASCADE, default=1)
+    itemTypeId = models.ForeignKey(TypeOfTranscation, on_delete=models.PROTECT, default=1)  # expenses incomes
+    itemTransactionDate = models.DateField(default=datetime.date.today())
 
     def __str__(self):
         return self.itemName

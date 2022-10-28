@@ -6,7 +6,7 @@ admin.site.register(CheckModel)
 admin.site.register(Categories)
 admin.site.register(TypeOfTranscation)
 admin.site.register(CheckData)
-admin.site.register(Transactions)
+
 
 class TransactionsAdmin(admin.ModelAdmin):
     list_display = ('id', 'transactionDate')
