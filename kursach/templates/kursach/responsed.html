@@ -1,0 +1,10 @@
+{% extends 'kursach/base.html' %}
+{% load filterForDict %}
+
+{% block content %}
+    {% for item in response_data %}
+                <div class="name">{{ item|key:"item" }}</div>
+                <div class="sum">{{ item|key:"price" }}</div>
+                <div class="count">{{ item|key:"count" }}</div>
+    {% endfor %}
+{% endblock %}
