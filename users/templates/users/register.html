@@ -4,10 +4,10 @@
         <form method="post" class="row g-3">
             {% csrf_token %}
             {% for item in form %}
-                <div class="col-md-6">
                 {% if item.errors %}
                     {{ item.errors }}
                 {% endif %}
+                <div class="col-md-6">
                     {{ item.label }}
                     {{ item }}
                 </div>
