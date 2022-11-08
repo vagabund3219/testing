@@ -1,0 +1,11 @@
+{% extends 'kursach/base.html' %}
+{% block content %}
+    <form method="post">
+        {% csrf_token %}
+        {% for item in form %}
+            <div class="col-md-6">
+                {{ item }}
+            </div>
+        {% endfor %}
+    </form>
+{%  endblock %}
