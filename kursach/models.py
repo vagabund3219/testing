@@ -3,12 +3,13 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.shortcuts import reverse
 
-
-# Create your models here.
-
-
 class Categories(models.Model):
-    category_name = models.CharField(max_length=80)
+    category_name = models.CharField(max_length=80, verbose_name='Название категории')
+    category_user_id = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
+
+    def get_absolute_url(self):
+        return reverse('add_category')
+
     def __str__(self):
         return self.category_name
 
@@ -37,7 +38,7 @@ class Transactions(models.Model):
     item_name = models.CharField(max_length=80, verbose_name='Имя')
     item_price = models.FloatField(verbose_name='Цена')
     item_category_id = models.ForeignKey(Categories, on_delete=models.CASCADE, default=1, verbose_name='Категория')
-    item_type_id = models.ForeignKey(Type_of_transcation, on_delete=models.PROTECT, default=1, verbose_name='Тип')  # expenses incomes
+    item_type_id = models.ForeignKey(Type_of_transcation, on_delete=models.PROTECT, default=1, verbose_name='Тип')# expenses incomes
     item_user_id = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
 
     def __str__(self):

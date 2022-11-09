@@ -4,6 +4,15 @@ from .models import Categories, Check_data, Type_of_transcation, Transactions
 # class Add_check(forms.Form):
 #     checkImg = forms.ImageField()
 
+class AddNewCategory(forms.ModelForm):
+    class Meta:
+        model = Categories
+        fields = ['category_name']
+        widgets = {
+            'category_name': forms.TextInput(attrs={'class': 'form-control'}),
+        }
+
+
 class Add_check_form(forms.ModelForm):
     class Meta:
         model = Transactions

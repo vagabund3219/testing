@@ -1,7 +1,7 @@
 from django.shortcuts import render, HttpResponse, redirect
 from .script_folder import checkScript
-from .forms import Add_check_form, Add_transaction_form
-from .models import Check_data, Transactions
+from .forms import Add_check_form, Add_transaction_form, AddNewCategory
+from .models import Check_data, Transactions, Categories
 from django.views.generic import ListView, CreateView
 
 class GetUserTransactions(ListView):
@@ -17,6 +17,20 @@ class AddTransactionView(CreateView):
     def form_valid(self, form):
         form.instance.item_user_id = self.request.user
         return super(AddTransactionView, self).form_valid(form)
+
+class ViewCheck(ListView):
+    model = Check_data
+    def get_queryset(self):
+        return Check_data.objects.filter(check_user_id=self.request.user.id)
+
+class AddNewCategory(CreateView):
+    model = Categories
+    template_name_suffix = '_create_form'
+    form_class = AddNewCategory
+
+    def form_valid(self, form):
+        form.instance.item_user_id = self.request.user
+        return super(AddNewCategory, self).form_valid(form)
 
 def send_check(request):
     template = 'kursach/index.html'
@@ -37,16 +51,7 @@ def send_check(request):
         form = Add_check_form()
     return render(request, template, {'form': form})
 
-# def add_transaction(request):
-#     if request.method == 'POST':
-#         form = Add_transaction_form(request.POST)
-#         if form.is_valid():
-#             form.save()
-#     else:
-#         form = Add_transaction_form()
-#     return render(request, 'kursach/transactions_create_form.html', {'form': form})
-
 def main(request):
-    return render(request, 'kursach/base.html')
+    return render(request, 'kursach/main_page.html')
 
 
