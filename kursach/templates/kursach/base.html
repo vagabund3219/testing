@@ -21,17 +21,24 @@
           <a class="nav-link active" aria-current="page" href="{% url 'main' %}">Главная</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{% url 'add_transaction' %}">Транзакции</a>
+          <a class="nav-link" href="{% url 'add_transaction' %}">Добавить транзакции</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="{% url 'send_check' %}">Чеки</a>
+        </li>
+          <li class="nav-item">
+          <a class="nav-link" href="{% url 'get_user_transactions' %}">Все транзакции</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="http://127.0.0.1:8000/admin/">Админ</a>
         </li>
       </ul>
     </div>
-      <span class="navbar-text"><a href="{% url 'register' %}">Регистрация</a> | <a href="{% url 'login' %}">Авторизация</a></span>
+      {% if user.is_authenticated %}
+        <span class="navbar-text"><a href="{% url 'logout' %}">Выход</a></span>
+          {% else %}
+          <span class="navbar-text"><a href="{% url 'register' %}">Регистрация</a> | <a href="{% url 'login' %}">Авторизация</a></span>
+      {% endif %}
   </div>
 </nav>
 {% block content %}
