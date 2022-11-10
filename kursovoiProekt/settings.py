@@ -77,7 +77,8 @@ DATABASES = {
     }
 }
 
-
+DATE_FORMAT = ( ( 'd-m-Y' ))
+DATE_INPUT_FORMATS = ( ('%d.%m.%Y'),)
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 
@@ -115,7 +116,10 @@ USE_TZ = True
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 STATIC_URL = 'static/'
-
+# STATICFILES_DIRS = (
+#     ('users', os.path.join(BASE_DIR, 'users', 'static')),
+#     ('kursach', os.path.join(BASE_DIR, 'kursach', 'static')),
+# )
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 

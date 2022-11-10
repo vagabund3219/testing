@@ -11,9 +11,17 @@
                     {{form.item_type_id}}
                 </div>
                 <div class="col-2 p-2">
-                    <label for="formFile" class="form-label">{{ form.item_transaction_date.label}}</label>
+                    <div class="form-outline datepicker">
+                        <label for="datepicker">{{ form.item_transaction_date.label}}</label>
+                        <div class="input-group date" id="datepicker"></div>
+                        <input type="date" class="form-control" placeholder="MM/DD/YYYY">
+                        <span class="input-group-append input-group-addon"></span>
+
+                    </div>
+
+{#                    <label for="formFile" class="form-label">{{ form.item_transaction_date.label}}</label>#}
 {#                    {{form.item_transaction_date}}#}
-                    <input type="text" name="item_transaction_date" id="id_item_transaction_date" class="form-control" placeholder="2022-01-31">
+{#                    <input type="text" name="item_transaction_date" id="id_item_transaction_date" class="form-control" placeholder="2022-01-31">#}
                 </div>
                 <div class="col-2 p-2">
                     <label for="formFile" class="form-label">{{ form.item_name.label}}</label>

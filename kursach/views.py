@@ -1,4 +1,6 @@
 from django.shortcuts import render, HttpResponse, redirect
+from django.utils import dateformat
+from kursovoiProekt import settings
 from .script_folder import checkScript
 from .forms import Add_check_form, Add_transaction_form, AddNewCategory
 from .models import Check_data, Transactions, Categories

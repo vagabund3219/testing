@@ -2,11 +2,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-{% block head %}
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-{% endblock %}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>{% block title %}{% endblock %}</title>
+    {% block head %}
+    {% endblock %}
 </head>
 <body>
 <nav class="navbar navbar-expand-lg bg-light">
@@ -17,6 +17,9 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
+          <li class="nav-item">
+              <a class="nav-link" href="{% url 'main' %}">Главная</a>
+            </li>
           <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Транзакции
@@ -46,7 +49,7 @@
     {% endblock %}
     {%  else %}
     <div class="container">
-        <div class="alert alert-danger text-center">Вы должны авторизироваться!</div>
+        <div class="alert alert-danger text-center auth-hidden">Вы должны авторизироваться!</div>
     </div>
 {% endif %}
     {% block auth %}
