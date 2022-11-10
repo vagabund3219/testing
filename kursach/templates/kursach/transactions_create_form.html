@@ -1,4 +1,8 @@
 {% extends 'kursach/base.html' %}
+{% load static %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'kursach/js/vanillajs-datepicker/dist/css/datepicker.css' %}">
+{%  endblock %}
 {% block content %}
     <form method="POST">
         {% csrf_token %}
@@ -11,17 +15,8 @@
                     {{form.item_type_id}}
                 </div>
                 <div class="col-2 p-2">
-                    <div class="form-outline datepicker">
-                        <label for="datepicker">{{ form.item_transaction_date.label}}</label>
-                        <div class="input-group date" id="datepicker"></div>
-                        <input type="date" class="form-control" placeholder="MM/DD/YYYY">
-                        <span class="input-group-append input-group-addon"></span>
-
-                    </div>
-
-{#                    <label for="formFile" class="form-label">{{ form.item_transaction_date.label}}</label>#}
-{#                    {{form.item_transaction_date}}#}
-{#                    <input type="text" name="item_transaction_date" id="id_item_transaction_date" class="form-control" placeholder="2022-01-31">#}
+                    <label for="formFile" class="form-label">{{ form.item_transaction_date.label}}</label>
+                    {{form.item_transaction_date}}
                 </div>
                 <div class="col-2 p-2">
                     <label for="formFile" class="form-label">{{ form.item_name.label}}</label>
@@ -38,4 +33,5 @@
                 <div class="col-2 p-2" ><input type="submit" class="btn btn-primary col-12"></div>
              </div>
     </form>
+    <script type="module" src="{% static 'kursach/js/date_picker.js' %}"></script>
 {% endblock %}
