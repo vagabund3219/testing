@@ -1,0 +1,26 @@
+{% extends 'kursach/base.html' %}
+{% block head %}
+    <link rel="stylesheet" href="">
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            {% for item in object_list %}
+                <div class="col-6">
+                    <div class="card text-center">
+                      <div class="card-header card-title">
+                        <h5>{{ item.news_title }}</h5>
+                      </div>
+                      <div class="card-body">
+                        <p class="card-text card-height">{{ item.news_text|linebreaks|truncatechars:300}}</p>
+                        <a href="{% url 'news_detail' item.pk %}" class="btn btn-primary">Прочитать полностью</a>
+                      </div>
+                      <div class="card-footer text-muted">
+                        {{ item.news_date }}
+                      </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

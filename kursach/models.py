@@ -3,6 +3,9 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.shortcuts import reverse
 
+
+
+
 class Categories(models.Model):
     category_name = models.CharField(max_length=80, verbose_name='Название категории')
     category_user_id = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
@@ -33,8 +36,19 @@ class Check_data(models.Model):
     class Meta:
         verbose_name = "Данные"
 
-class Transactions(models.Model):
 
+class News(models.Model):
+    news_title = models.CharField(max_length=80)
+    news_date = models.DateField()
+    news_text = models.TextField()
+
+    def __str__(self):
+        return self.news_title
+
+    def get_absolute_url(self):
+        return reverse('full_news')
+
+class Transactions(models.Model):
     item_transaction_date = models.DateField(verbose_name='Дата')
     item_name = models.CharField(max_length=80, verbose_name='Имя')
     item_price = models.FloatField(verbose_name='Цена')

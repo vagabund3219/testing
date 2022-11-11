@@ -3,8 +3,16 @@ from django.utils import dateformat
 from kursovoiProekt import settings
 from .script_folder import checkScript
 from .forms import Add_check_form, Add_transaction_form, AddNewCategory
-from .models import Check_data, Transactions, Categories
-from django.views.generic import ListView, CreateView
+from .models import Check_data, Transactions, Categories, News
+from django.views.generic import ListView, CreateView, DetailView
+
+
+
+class NewsList(ListView):
+    model = News
+
+class NewsDetail(DetailView):
+    model = News
 
 class GetUserTransactions(ListView):
     model = Transactions
@@ -54,6 +62,6 @@ def send_check(request):
     return render(request, template, {'form': form})
 
 def main(request):
-    return render(request, 'kursach/main_page.html')
+    return render(request, 'kursach/news_list.html')
 
 
