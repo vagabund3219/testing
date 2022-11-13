@@ -16,11 +16,19 @@ class Categories(models.Model):
     def __str__(self):
         return self.category_name
 
+    class Meta:
+        verbose_name = 'Категория'
+        verbose_name_plural = "Категории"
+
 class Type_of_transcation(models.Model):
     type_name = models.CharField(max_length=80)
 
     def __str__(self):
         return self.type_name
+
+    class Meta:
+        verbose_name = 'Тип транзакции'
+        verbose_name_plural = "Типы транзакций"
 
 class Check_data(models.Model):
     check_name = models.CharField(max_length=80)
@@ -34,7 +42,8 @@ class Check_data(models.Model):
         return self.check_name
 
     class Meta:
-        verbose_name = "Данные"
+        verbose_name = "Чек"
+        verbose_name_plural = "Чеки"
 
 
 class News(models.Model):
@@ -48,6 +57,10 @@ class News(models.Model):
     def get_absolute_url(self):
         return reverse('full_news')
 
+    class Meta:
+        verbose_name = "Новость"
+        verbose_name_plural = "Новости"
+
 class Transactions(models.Model):
     item_transaction_date = models.DateField(verbose_name='Дата')
     item_name = models.CharField(max_length=80, verbose_name='Имя')
@@ -55,17 +68,27 @@ class Transactions(models.Model):
     item_category_id = models.ForeignKey(Categories, on_delete=models.CASCADE, default=1, verbose_name='Категория')
     item_type_id = models.ForeignKey(Type_of_transcation, on_delete=models.PROTECT, default=1, verbose_name='Тип')# expenses incomes
     item_user_id = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
-
-
     def __str__(self):
         return self.item_name
 
     def get_absolute_url(self):
         return reverse('get_user_transactions')
 
+    class Meta:
+        verbose_name = "Транзакция"
+        verbose_name_plural = "Транзакции"
+
+
 class Bill(models.Model):
     bill_sum = models.FloatField(default=0)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.user.username
+
+    class Meta:
+        verbose_name = "Счёт"
+        verbose_name_plural = "Счета"
 
 
 

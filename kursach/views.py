@@ -1,7 +1,7 @@
-from django.shortcuts import render, HttpResponse, redirect
-from django.utils import dateformat
-from kursovoiProekt import settings
-from .script_folder import checkScript
+from django.shortcuts import render, redirect
+from django.urls import reverse
+
+from .script_folder.checkScript import *
 from .forms import Add_check_form, Add_transaction_form, AddNewCategory
 from .models import Check_data, Transactions, Categories, News, Bill
 from django.views.generic import ListView, CreateView, DetailView
@@ -26,14 +26,7 @@ class AddTransactionView(CreateView):
 
     def form_valid(self, form):
         form.instance.item_user_id = self.request.user
-        print('11111111111111111111')
-        bill = Bill.objects.get_or_create(user_id=self.request.user.id)
-        print(bill)
-        if int(form.data['item_type_id'])==3:
-            bill[0].bill_sum += int(form.data['item_price'])
-        else:
-            bill[0].bill_sum -= int(form.data['item_price'])
-        bill[0].save()
+        update_bill(Bill, form, self.request.user.id)
         return super(AddTransactionView, self).form_valid(form)
 
 class ViewCheck(ListView):
@@ -50,17 +43,20 @@ class AddNewCategory(CreateView):
         form.instance.item_user_id = self.request.user
         return super(AddNewCategory, self).form_valid(form)
 
-def send_check(request):
+def send_check_view(request):
     template = 'kursach/index.html'
     if request.method == 'POST' and request.FILES:
         form = Add_check_form(request.POST, request.FILES)
         file = request.FILES['checkImg'].read()
-        response_data = checkScript.send_check(file)
+        response_data = send_check(file)
         if response_data != None and form.is_valid():
             for item in response_data:
                 to_db = Check_data(check_name=item['item'], check_count=item['count'], check_price=item['price'], check_category_id=form.cleaned_data['check_category_id'], check_user_id = request.user)
                 to_db.save()
-            return render(request, 'kursach/responsed.html', {'response_data': response_data})
+                bill = Bill.objects.get_or_create(user_id=request.user.id)
+                bill[0].bill_sum -= int(item['price'])
+                bill[0].save()
+            return redirect('view_check')
         else:
             form = Add_check_form()
             error = 'This is not check'
