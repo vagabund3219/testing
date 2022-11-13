@@ -28,3 +28,12 @@ def update_bill(query, form, user):
     else:
         bill[0].bill_sum -= int(form.data['item_price'])
     bill[0].save()
+
+def sort_by_date(*args):
+    lst = []
+    for dic in args:
+        for item in dic:
+            lst.append(item)
+    lst.sort(key=lambda o: o.date, reverse=True)
+    return lst
+

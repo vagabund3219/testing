@@ -68,4 +68,9 @@ def send_check_view(request):
 def main(request):
     return render(request, 'kursach/news_list.html')
 
+def get_user_transactions(request):
+    checks = Check_data.objects.filter(check_user_id=request.user.id)
+    transactions = Transactions.objects.filter(item_user_id=request.user.id)
+    lst = sort_by_date(checks, transactions)
+    return render(request, 'kursach/transactions_list.html', {'form': lst})
 
