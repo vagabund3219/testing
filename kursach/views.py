@@ -3,7 +3,7 @@ from django.utils import dateformat
 from kursovoiProekt import settings
 from .script_folder import checkScript
 from .forms import Add_check_form, Add_transaction_form, AddNewCategory
-from .models import Check_data, Transactions, Categories, News
+from .models import Check_data, Transactions, Categories, News, Bill
 from django.views.generic import ListView, CreateView, DetailView
 
 
@@ -26,6 +26,14 @@ class AddTransactionView(CreateView):
 
     def form_valid(self, form):
         form.instance.item_user_id = self.request.user
+        print('11111111111111111111')
+        bill = Bill.objects.get_or_create(user_id=self.request.user.id)
+        print(bill)
+        if int(form.data['item_type_id'])==3:
+            bill[0].bill_sum += int(form.data['item_price'])
+        else:
+            bill[0].bill_sum -= int(form.data['item_price'])
+        bill[0].save()
         return super(AddTransactionView, self).form_valid(form)
 
 class ViewCheck(ListView):

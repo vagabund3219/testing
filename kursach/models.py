@@ -63,6 +63,10 @@ class Transactions(models.Model):
     def get_absolute_url(self):
         return reverse('get_user_transactions')
 
+class Bill(models.Model):
+    bill_sum = models.FloatField(default=0)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
 
 
 
